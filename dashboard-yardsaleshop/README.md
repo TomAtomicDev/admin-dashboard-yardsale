@@ -1,3 +1,43 @@
+# YardSale Dashboard
+
+Description....
+
+**You can see the app deployed here:**
+[yardsale-dashboard.com](https://)
+
+## Features
+
+---
+
+- bullet
+- bullet
+
+## Dependencies
+
+---
+
+- bullet
+- bullet
+
+## Scripts
+
+---
+
+- script
+- script
+
+## Developing Process
+
+---
+
+### Building the Authentication Feature
+
+**Login Page:** The login UI has been set using the components of Tailwind UI library. It has been added the _useref_ hook to extract the information typed by the user and processed on a function called _submitHandler_.
+
+**useAuth CustomHook:** This hook manages the call to the API for the Sign In process. Creates a Context, a Provider and a function _useAuth_ that exposes the content in the context.
+
+//From NEXT
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
