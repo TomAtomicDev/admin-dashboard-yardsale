@@ -17,8 +17,16 @@ function useProviderAuth() {
 
 		const url = endPoints.auth.login;
 
-		const { data: access_token } = await axios.post(url, {email, password }, options);
-		console.log(access_token);
+		const { data: { access_token } } = await axios.post(url, {email, password }, options);
+		if (access_token){
+			Cookie.set('token', access_token, {expires: 5});
+
+			axios.defaults.headers.Authorization = `Bearer ${access_token}`;
+			const { data: user } = await axios.get(endPoints.auth.profile);
+			console.log(user);
+			setUser(user);
+
+		} 
 	};
 
 	return{

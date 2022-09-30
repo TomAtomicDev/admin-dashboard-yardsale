@@ -1,13 +1,22 @@
 import { LockClosedIcon } from '@heroicons/react/24/solid';
-import { useRef } from 'react';
-import { useAuth } from '@hooks/useAuth'
+import { useRef, useState } from 'react';
+import { useRouter } from 'next/router';
+import SignErrorModal from '@components/SignErrorModal'
+import { useAuth } from '@hooks/useAuth';
 
 
 
 export default function LoginPage() {
+  //SignErrormodal states
+  const [open, setOpen] = useState(false);
+  const cancelButtonRef = useRef(null);
+  //Form states
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
   const auth = useAuth();
+  const router = useRouter();
+
+
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -16,9 +25,15 @@ export default function LoginPage() {
     const psswd = passwordRef.current.value;
     
     console.log(auth)
-    auth.signIn( email, psswd ).then(() => {
-      console.log('Sign In success')
-    })
+    auth.signIn( email, psswd )
+      .then(() => { 
+          console.log('Sign In success');
+          router.push('/dashboard')
+          })
+      .catch(error => { 
+        console.log("SignIn error:"+error);
+        setOpen(true);
+       })
   }
 
   return (
@@ -29,6 +44,7 @@ export default function LoginPage() {
             <img className="mx-auto h-12 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" alt="Workflow" />
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
           </div>
+          <SignErrorModal cancelButtonRef={cancelButtonRef} open={open} setOpen={setOpen}/>
             <form className="mt-8 space-y-6" onSubmit={submitHandler}>
               <input type="hidden" name="remember" defaultValue="true" />
               <div className="rounded-md shadow-sm -space-y-px">
@@ -92,6 +108,7 @@ export default function LoginPage() {
               </div>
             </form>
         </div>
+        
       </div>
     </>
   );
