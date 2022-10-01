@@ -1,23 +1,28 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const useFetch = (endpoint) => {
-    const [data, setData] = useState([]); 
+const useFetch = (url) => {
+    const [ data, setData ]  = useState ([]);
+    const [ errorFetch, setErrorFetch ] = useState (false);
 
-    async function fetchData(){
-        const response = await axios.get(endpoint); 
-        setData(response.data);
+    async function fetchData () {
+        const response = await axios.get(url);
+        setData(response.data)
     }
-    //useEffect permite ejecutar el llamado cuando se necesite
+
     useEffect(() => {
         try {
             fetchData();
-        } catch (error) {
-            console.log(error); // no deberíamos usar conlogs sino Sentry JS para reportar errores
+        } catch (err){
+            console.log(err);
+            setErrorFetch(true);
         }
-    }, []); //El array debe estar vacío cuando no se usa Pagination
+    },[]);
 
-    return data;
+    return {
+        data,
+        errorFetch,
+    }
 };
 
-export default useFetch;
+export default useFetch ;
