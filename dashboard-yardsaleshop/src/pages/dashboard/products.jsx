@@ -3,7 +3,10 @@ import endPoints from '@services/api';
 import Pagination from '@components/Pagination';
 import ProductTable from '@components/ProductTable';
 import Modal from '@common/Modal';
-import { useState } from 'react';
+import FormProduct from '@components/FormProduct';
+import Alert from '@components/Alert';
+import useAlert from '@hooks/useAlert';
+import { useState, useEffect } from 'react';
 import {
   BriefcaseIcon,
   CalendarIcon,
@@ -16,17 +19,24 @@ import {
 } from '@heroicons/react/20/solid'
 
 
-export default function products() {
 
+export default function Products() {
+  const {alert, setAlert, toogleAlert } = useAlert();
   const [open, setOpen] = useState(false);
-  
-  //Logic needed for Table and Pagination Components
+  const [products, setProducts]= useState([]);
+
   const { data: allProducts} = useFetch(endPoints.products.getList(0,0));
-  const PRODUCT_LIMIT = 5;
-  const totalPages = Math.ceil(allProducts.length / PRODUCT_LIMIT);
+  
+  useEffect(() => {
+    setProducts(allProducts);
+  }, [allProducts])
+  
+  const PRODUCT_LIMIT = 25;
+  const totalPages = Math.ceil(products.length / PRODUCT_LIMIT);
 
   return (
     <>
+      <Alert alert={alert} handleClose={toogleAlert} />
       {/* Componente Header Page */}
       <div className="lg:flex lg:items-center lg:justify-between mb-8">
         <div className="min-w-0 flex-1">
@@ -59,15 +69,17 @@ export default function products() {
                 totalPages={totalPages} 
               />
               <ProductTable
-                allProducts={allProducts}
+                products={products}
+                setProducts={setProducts}
                 productLimit={ PRODUCT_LIMIT }
+                setAlert={setAlert}
               />
             </div>
           </div>
         </div>
       </div>
       <Modal open={open} setOpen={setOpen}>
-        <h1>Holaa</h1>
+        <FormProduct setOpen={setOpen} setAlert={setAlert} setProducts={setProducts}/>
       </Modal>
     </>
   );

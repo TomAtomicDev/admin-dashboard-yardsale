@@ -1,14 +1,40 @@
 import { useAuth } from "@hooks/useAuth";
+import { deleteProduct } from '@services/api/deleteProduct';
+import { XCircleIcon } from '@heroicons/react/24/solid';
+import Link from "next/link";
+import axios from 'axios';
+import endPoints from '@services/api';
 
-function ProductTable({allProducts, productLimit}) {
+function ProductTable({products, setProducts, productLimit, setAlert}) {
 
 	
 	const { currentPage } = useAuth();
   const firstProduct = (currentPage -1 )*productLimit;
   const lastProduct = firstProduct + productLimit;
 
-	const visibleProducts = allProducts.slice(firstProduct, lastProduct)
+	const visibleProducts = products.slice(firstProduct, lastProduct)
 
+  const handleDelete = (id) => {
+    deleteProduct(id).then(() => {
+      setAlert({
+        active: true,
+        message: 'Product deleted successfully',
+        type: 'success-deleted',
+        autoClose: true
+      })
+    }).finally( () => {
+      const fetchAgain = async () => {
+        try {
+          const resp =  await axios.get(endPoints.products.getList(0,0));
+          setProducts(resp.data);
+        } catch (error){
+          console.log(error.message);
+          return
+        }          
+        }
+      fetchAgain();
+  })
+  }
 
     return (
         <table className="min-w-full divide-y divide-gray-200">
@@ -56,14 +82,18 @@ function ProductTable({allProducts, productLimit}) {
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{product.id}</td>
               <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <a href="#" className="text-indigo-600 hover:text-indigo-900">
-                  Edit
-                </a>
+                <Link href={`edit/${product.id}`} >
+                  <span className="text-indigo-600 hover:text-indigo-900 cursor-pointer">
+                    Edit
+                  </span>
+                  
+                </Link>
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <a href="#" className="text-indigo-600 hover:text-indigo-900">
-                  Delete
-                </a>
+              <XCircleIcon className="flex-shrink-0 h-6 w-6 text-gray-400 cursor-pointer" 
+                aria-hidden="true" 
+                onClick={() => handleDelete(product.id)}  
+              />
               </td>
             </tr>
           ))}
