@@ -20,7 +20,7 @@ const handleSumit = (event) => {
       price: parseInt(formData.get('price')), //Se transforma en valor numérico
       description: formData.get('description'),
       categoryId: parseInt(formData.get('category')),
-      images: [formData.get('images').name || product?.images],
+      images: [formData.get('images').name || product?.images /* || "https://api.lorem.space/image/shoes?w=640&h=480&r=6261" */],
     };
 
     if ( product) {

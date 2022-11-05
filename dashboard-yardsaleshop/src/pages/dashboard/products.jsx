@@ -7,6 +7,7 @@ import FormProduct from '@components/FormProduct';
 import Alert from '@components/Alert';
 import useAlert from '@hooks/useAlert';
 import { useState, useEffect } from 'react';
+import { useAuth } from '@hooks/useAuth';
 import {
   BriefcaseIcon,
   CalendarIcon,
@@ -24,8 +25,15 @@ export default function Products() {
   const {alert, setAlert, toogleAlert } = useAlert();
   const [open, setOpen] = useState(false);
   const [products, setProducts]= useState([]);
+  const { verifyAuthentication }= useAuth();
 
   const { data: allProducts} = useFetch(endPoints.products.getList(0,0));
+
+  
+   
+  useEffect(() => {       
+      verifyAuthentication();        
+    }, []);
   
   useEffect(() => {
     setProducts(allProducts);

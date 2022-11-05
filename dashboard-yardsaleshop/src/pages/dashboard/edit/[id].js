@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from "next/router";
+import { useAuth } from '@hooks/useAuth';
 import useAlert from '@hooks/useAlert';
 import axios from "axios";
 import endPoints from "@services/api";
@@ -11,6 +12,11 @@ function Edit () {
     const [product, setProduct] = useState({});
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
+    const { verifyAuthentication }= useAuth();
+   
+    useEffect(() => {       
+        verifyAuthentication();        
+      }, []);
     
     useEffect(()=> {
         setLoading(true);

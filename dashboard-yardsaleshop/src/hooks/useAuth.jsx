@@ -1,4 +1,5 @@
 import React, { useState, useContext, createContext } from 'react';
+import { useRouter } from 'next/router';
 import Cookie from 'js-cookie';
 import axios from 'axios';
 import endPoints from '@services/api/';
@@ -8,7 +9,7 @@ import endPoints from '@services/api/';
 function useProviderAuth() {
 	const [user, setUser] = useState(null);
 	const [currentPage, setCurrentPage] = useState(1);
-	
+	const router = useRouter();
 
 	const signIn = async (email, password) => {
 		const options = {

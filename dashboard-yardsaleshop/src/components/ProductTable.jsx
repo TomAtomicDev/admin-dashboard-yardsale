@@ -16,6 +16,7 @@ function ProductTable({products, setProducts, productLimit, setAlert}) {
 
   const handleDelete = (id) => {
     deleteProduct(id).then(() => {
+      window.scrollTo(0, 0);
       setAlert({
         active: true,
         message: 'Product deleted successfully',

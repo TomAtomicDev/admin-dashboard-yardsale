@@ -2,23 +2,15 @@ import useFetch from '@hooks/useFetch';
 import endPoints from '@services/api';
 import { Chart } from '@common/Chart';
 import { useAuth } from '@hooks/useAuth';
-import { useRouter } from 'next/router';
+
 import { useEffect } from 'react';
 
 export default function Dashboard () {
-    const router = useRouter();
-    const { user }= useAuth();
-
-    const checkIfLoggedIn = () => {
-        if (!user) {
-          router.push('/');
-        }
-    };
     
-    useEffect(() => {
-       
-        checkIfLoggedIn();
-        
+    const { verifyAuthentication }= useAuth();
+   
+    useEffect(() => {       
+        verifyAuthentication();        
       }, []);
 	
 
