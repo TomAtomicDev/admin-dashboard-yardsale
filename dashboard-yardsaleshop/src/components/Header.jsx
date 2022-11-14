@@ -7,8 +7,10 @@ import { useAuth } from '@hooks/useAuth';
 
 
 const navigation = [
-  { name: 'Dashboard', href: '/dashboard/', current: true },
-  { name: 'Productos', href: '/dashboard/products/', current: false },
+  { name: 'Welcome', href: '/', current: true },
+  { name: 'Login', href: '/login/', current: false },
+  { name: 'Dashboard', href: '/dashboard/', current: false },
+  { name: 'Products', href: '/dashboard/products/', current: false },
   
 ];
 const userNavigation = [
@@ -43,10 +45,8 @@ export default function Header() {
                   <div className="hidden md:block">
                     <div className="ml-10 flex items-baseline space-x-4">
                       {navigation.map((item) => (
-                        <Link href={item.href}>
-                          <a
-                            key={item.name}
-                            
+                        <Link href={item.href} key={item.name}>
+                          <a                                               
                             className={classNames(item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'px-3 py-2 rounded-md text-sm font-medium')}
                             aria-current={item.current ? 'page' : undefined}
                           >

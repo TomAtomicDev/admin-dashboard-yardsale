@@ -23,20 +23,26 @@ function useProviderAuth() {
 
 		const { data: { access_token } } = await axios.post(url, {email, password }, options);
 		if (access_token){
-			Cookie.set('token', access_token, {expires: 5});
+			Cookie.set('token', access_token, {expires: 1});
 
 			axios.defaults.headers.Authorization = `Bearer ${access_token}`;
 			const { data: user } = await axios.get(endPoints.auth.profile);
-			console.log(user);
+			console.info('Access Token Created');
 			setUser(user);
 
 		} ;
 	};
 
-	const verifyAuthentication = () => {
-		if (!user) {
+	const verifyAuthentication = async () => {
+		const jwt= Cookie.get('token');
+		if (jwt){
+			axios.defaults.headers.Authorization = `Bearer ${jwt}`;
+			const { data: user } = await axios.get(endPoints.auth.profile);
+			console.info('Access Token still valid');
+			setUser(user);
+		} else {
 			router.push('/login');
-		  }
+		}
 	}
 	
 	const logout = () => {

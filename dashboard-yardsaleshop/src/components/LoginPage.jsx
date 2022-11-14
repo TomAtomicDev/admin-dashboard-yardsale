@@ -41,8 +41,9 @@ export default function LoginPage() {
       <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div>
-            <img className="mx-auto h-12 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" alt="Workflow" />
+            <img className="mx-auto h-16 w-auto" src="/images/icons/favicon_yard_sale.svg" alt="Workflow" />
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
+            <p className="mt-6 text-center text-gray-500">Try using admin@mail.com as email and admin123 as password.</p>
           </div>
           <SignErrorModal cancelButtonRef={cancelButtonRef} open={open} setOpen={setOpen}/>
             <form className="mt-8 space-y-6" onSubmit={submitHandler}>
