@@ -44,13 +44,13 @@ function ProductTable({ products, setProducts, productLimit }) {
           <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
             Name
           </th>
-          <th scope="col" className="hidden md:inline px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          <th scope="col" className="hidden md:block px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
             Category
           </th>
           <th scope="col" className="px-2 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
             Price
           </th>
-          <th scope="col" className="hidden sm:inline px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          <th scope="col" className="hidden sm:block px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
             ID
           </th>
           <th scope="col" className="relative px-6 py-3">
@@ -74,13 +74,13 @@ function ProductTable({ products, setProducts, productLimit }) {
                 </div>
               </div>
             </td>
-            <td className="hidden md:inline-flex px-6 py-4 whitespace-nowrap">
+            <td className="hidden md:table-cell px-6 py-4 whitespace-nowrap">
               <div className="text-sm text-gray-900">{product.category.name}</div>
             </td>
             <td className="px-2 sm:px-6 py-4 whitespace-nowrap">
               <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">${product.price}</span>
             </td>
-            <td className="hidden sm:inline-flex px-6 py-4 whitespace-nowrap text-sm text-gray-500">{product.id}</td>
+            <td className="hidden sm:table-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500">{product.id}</td>
             <td className="px-2 sm:px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
               <Link href={`edit/${product.id}`}>
                 <span className="text-indigo-600 hover:text-indigo-900 cursor-pointer">Edit</span>
