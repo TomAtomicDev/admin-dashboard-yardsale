@@ -2,11 +2,11 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid';
 import { useState } from 'react';
 import { useAuth } from '@hooks/useAuth';
 
-export default function Pagination({totalPages}) {
-	const { setCurrentPage } = useAuth();
+export default function Pagination({ totalPages }) {
+  const { setCurrentPage } = useAuth();
   const neighbours = 3;
 
-	const items = [];
+  const items = [];
   const [current, setCurrent] = useState(1);
   const end = Math.min(Math.max(neighbours * 2 + 2, neighbours + current + 1), totalPages + 1);
   const start = Math.min(Math.max(end - (neighbours * 2 + 1), 1), Math.max(current - neighbours, 1));

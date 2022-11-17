@@ -1,9 +1,7 @@
 import LoadingPage from '@components/LoginPage';
 
 function Login() {
-    return (
-        <LoadingPage />
-    );
+  return <LoadingPage />;
 }
 
 export default Login;

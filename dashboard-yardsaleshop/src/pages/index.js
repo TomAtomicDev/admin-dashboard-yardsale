@@ -27,14 +27,7 @@ export default function Home() {
                     <div className="flex w-full items-center justify-between md:w-auto">
                       <button>
                         <span className="sr-only">Your Company</span>
-                        <Image 
-                          alt="Your Company" 
-                          className="h-8 w-auto sm:h-10" 
-                          src="/images/icons/logo_yard_sale.svg" 
-                          width= "100%" 
-                          height= "100%"
-                          layout= "responsive"
-                        />
+                        <Image alt="Your Company" className="h-8 w-auto sm:h-10" src="/images/icons/logo_yard_sale.svg" width="100%" height="100%" layout="responsive" />
                       </button>
                     </div>
                   </div>
@@ -71,15 +64,20 @@ export default function Home() {
             <main className="mx-auto mt-10 max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
               <div className="sm:text-center lg:text-left">
                 <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
-                  <span className="block xl:inline">Admin Dashboard</span> 
+                  <span className="block xl:inline">Admin Dashboard</span>
                 </h1>
                 <h3 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl md:text-4xl">
-                 <span className="block text-lime-600 xl:inline">Yard Sale Store</span>
+                  <span className="block text-lime-600 xl:inline">Yard Sale Store</span>
                 </h3>
                 <p className="mt-3 text-base text-gray-500 sm:mx-auto sm:mt-5 sm:max-w-xl sm:text-lg md:mt-5 md:text-xl lg:mx-0">
-                  Through this dashboard, you will be able to communicate with the database of products. You can check the product details, create, edit, and delete as required. You can do so by connecting
-                  with the&nbsp;
-                  <a className="text-indigo-600 underline hover:text-purple-700 transition duration-300 ease-in-out mb-4" href="https://api.escuelajs.co/docs/" target="_blank" rel="noopener noreferrer">
+                  Through this dashboard, you will be able to communicate with the database of products. You can check the product details, create, edit, and delete as required. You can do so by
+                  connecting with the&nbsp;
+                  <a
+                    className="text-indigo-600 underline hover:text-purple-700 transition duration-300 ease-in-out mb-4"
+                    href="https://api.escuelajs.co/docs/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     Platzi Fake Store API.
                   </a>
                 </p>
@@ -102,14 +100,7 @@ export default function Home() {
           </div>
         </div>
         <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-          <Image 
-            className="h-56 w-full object-cover sm:h-72 md:h-96 lg:h-full lg:w-full" 
-            src="/images/welcome-image.jpg" 
-            alt=""
-            width= "100%" 
-            height= "100%"
-            layout= "responsive"
-          />
+          <Image className="h-56 w-full object-cover sm:h-72 md:h-96 lg:h-full lg:w-full" src="/images/welcome-image.jpg" alt="" width="100%" height="100%" layout="responsive" />
         </div>
       </div>
     </>

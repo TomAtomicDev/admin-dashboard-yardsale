@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "format": "prettier-eslint --eslint-config-path ./.eslintrc.js --write '**/*.js'",
+    "prettier": "npx prettier src test --check",
+    "prettier:fix": "npm run prettier -- --write",
+    "format": "npm run prettier:fix && npm run lint:fix",
     "lint": "next lint",
     "lint:fix": "eslint src/ --fix"
   },
