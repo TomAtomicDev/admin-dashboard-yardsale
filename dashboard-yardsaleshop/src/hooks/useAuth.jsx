@@ -1,5 +1,6 @@
 import React, { useState, useContext, createContext } from 'react';
 import { useRouter } from 'next/router';
+import useAlert from '@hooks/useAlert';
 import Cookie from 'js-cookie';
 import axios from 'axios';
 import endPoints from '@services/api/';
@@ -9,6 +10,7 @@ import endPoints from '@services/api/';
 function useProviderAuth() {
 	const [user, setUser] = useState(null);
 	const [currentPage, setCurrentPage] = useState(1);
+	const {alert, setAlert, toogleAlert } = useAlert();
 	const router = useRouter();
 
 	const signIn = async (email, password) => {
@@ -29,19 +31,20 @@ function useProviderAuth() {
 			const { data: user } = await axios.get(endPoints.auth.profile);
 			console.info('Access Token Created');
 			setUser(user);
+			Cookie.set('user', user, {expires:1})
 
 		} ;
 	};
 
 	const verifyAuthentication = async () => {
 		const jwt= Cookie.get('token');
+		const savedUser = Cookie.get('user');
 		if (jwt){
-			axios.defaults.headers.Authorization = `Bearer ${jwt}`;
-			const { data: user } = await axios.get(endPoints.auth.profile);
 			console.info('Access Token still valid');
-			setUser(user);
+			setUser(savedUser);
 		} else {
 			router.push('/login');
+			console.error("Access denied, please sign in")
 		}
 	}
 	
@@ -58,7 +61,10 @@ function useProviderAuth() {
 		currentPage,
 		setCurrentPage,
 		logout,
-		verifyAuthentication
+		verifyAuthentication,
+		alert,
+		setAlert,
+		toogleAlert
 	};
 }
 

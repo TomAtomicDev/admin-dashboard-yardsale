@@ -7,17 +7,22 @@ import { useAuth } from '@hooks/useAuth';
 
 
 const navigation = [
-  { name: 'Welcome', href: '/', current: true },
-  { name: 'Login', href: '/login/', current: false },
+  { name: 'Welcome', href: '/', current: false },
+  { name: 'Sign in', href: '/login/', current: false },
   { name: 'Dashboard', href: '/dashboard/', current: false },
   { name: 'Products', href: '/dashboard/products/', current: false },
   
 ];
-const userNavigation = [
-  { name: 'Log out', href: '#' },
+/* const handleNavigation = (event) => {
+
+  for (let elem of navigation){
+    elem.current= false;
+    if (event.target.id == elem.name){
+      elem.current= true;
+    }
+  }
   
-  
-];
+} */ //Should work with route name
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -47,8 +52,10 @@ export default function Header() {
                       {navigation.map((item) => (
                         <Link href={item.href} key={item.name}>
                           <a                                               
-                            className={classNames(item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'px-3 py-2 rounded-md text-sm font-medium')}
+                            className={classNames(item.current ? 'bg-gray-900 text-white' : 'text-gray-400 hover:bg-gray-600 hover:text-white', 'px-3 py-2 rounded-md text-sm font-medium')}
                             aria-current={item.current ? 'page' : undefined}
+                            id={item.name}
+                            /* onClick={handleNavigation} */
                           >
                             {item.name}
                           </a>

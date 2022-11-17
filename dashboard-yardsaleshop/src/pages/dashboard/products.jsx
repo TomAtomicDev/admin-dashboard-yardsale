@@ -8,21 +8,12 @@ import Alert from '@components/Alert';
 import useAlert from '@hooks/useAlert';
 import { useState, useEffect } from 'react';
 import { useAuth } from '@hooks/useAuth';
-import {
-  BriefcaseIcon,
-  CalendarIcon,
-  CheckIcon,
-  ChevronDownIcon,
-  CurrencyDollarIcon,
-  LinkIcon,
-  MapPinIcon,
-  PencilIcon,
-} from '@heroicons/react/20/solid'
+import { CheckIcon } from '@heroicons/react/20/solid'
 
 
 
 export default function Products() {
-  const {alert, setAlert, toogleAlert } = useAlert();
+  const {alert, toogleAlert } = useAlert();
   const [open, setOpen] = useState(false);
   const [products, setProducts]= useState([]);
   const { verifyAuthentication }= useAuth();
@@ -44,9 +35,9 @@ export default function Products() {
 
   return (
     <>
-      <Alert alert={alert} handleClose={toogleAlert} />
+      <Alert />
       {/* Componente Header Page */}
-      <div className="lg:flex lg:items-center lg:justify-between mb-8">
+      <div className="pl-4 lg:flex lg:items-center lg:justify-between mb-8">
         <div className="min-w-0 flex-1">
           <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
             List of Products
@@ -80,14 +71,13 @@ export default function Products() {
                 products={products}
                 setProducts={setProducts}
                 productLimit={ PRODUCT_LIMIT }
-                setAlert={setAlert}
               />
             </div>
           </div>
         </div>
       </div>
       <Modal open={open} setOpen={setOpen}>
-        <FormProduct setOpen={setOpen} setAlert={setAlert} setProducts={setProducts}/>
+        <FormProduct setOpen={setOpen} setProducts={setProducts}/>
       </Modal>
     </>
   );

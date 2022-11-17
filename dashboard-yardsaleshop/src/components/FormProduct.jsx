@@ -1,94 +1,96 @@
 import { useRef } from "react";
 import { useRouter } from "next/router";
-import { addProduct } from "@services/api/addProduct";
 import axios from 'axios';
+import { addProduct } from "@services/api/addProduct";
+import { useAuth } from "@hooks/useAuth";
 import endPoints from '@services/api';
 import { updateProduct } from "@services/api/updateProduct";
 
-export default function FormProduct({ setOpen, setAlert, setProducts, product}) {
-const formRef= useRef();
-const router = useRouter();
+export default function FormProduct({ setOpen, setProducts, product}) {
+  const { setAlert } = useAuth();
+  const formRef= useRef();
+  const router = useRouter();
 
-console.log(product);
-const handleSumit = (event) => {
-    event.preventDefault();
+  console.log(product);
+  const handleSumit = (event) => {
+      event.preventDefault();
 
-    const formData = new FormData(formRef.current);
-    //Destructurar los datos
-    const data = {
-      title: formData.get('title'), //Se pasa el nombre del elemento
-      price: parseInt(formData.get('price')), //Se transforma en valor numérico
-      description: formData.get('description'),
-      categoryId: parseInt(formData.get('category')),
-      images: [formData.get('images').name || product?.images /* || "https://api.lorem.space/image/shoes?w=640&h=480&r=6261" */],
-    };
+      const formData = new FormData(formRef.current);
+      //Destructurar los datos
+      const data = {
+        title: formData.get('title'), //Se pasa el nombre del elemento
+        price: parseInt(formData.get('price')), //Se transforma en valor numérico
+        description: formData.get('description'),
+        categoryId: parseInt(formData.get('category')),
+        images: [formData.get('images').name || product?.images /* || "https://api.lorem.space/image/shoes?w=640&h=480&r=6261" */],
+      };
 
-    if ( product) {
-      
-      updateProduct(product.id, data)
-        .then(resp => {
-          console.log(data);          
-          setAlert({
-            active: true,
-            message: 'Product edited succesfully',
-            type: 'success-edited',
-            autoClose: false,
-          });
-          router.push('/dashboard/products');  
-             
-      }).catch((err) => {
+      if ( product) {
+        
+        updateProduct(product.id, data)
+          .then(resp => {
+            console.log(data);          
             setAlert({
               active: true,
-              message: `Ups! ${err.response.data.message}`,
-              type: 'error',
+              message: 'Product edited succesfully',
+              type: 'success-edited',
               autoClose: false,
             });
-            router.push('/dashboard/products');
-            
-      })
-    } else {
-      addProduct(data)
-        .then(resp => {
-          console.log(resp);
-          setAlert({
-            active: true,
-            message: 'Product added succesfully',
-            type: 'success-added',
-            autoClose: true,
-          });
-          setOpen(false);
-          router.push('/dashboard/products');      
-      }).catch((err) => {
-            console.log(err)
+            router.push('/dashboard/products');  
+              
+        }).catch((err) => {
+              setAlert({
+                active: true,
+                message: `Ups! ${err.response.data.message}`,
+                type: 'error',
+                autoClose: false,
+              });
+              router.push('/dashboard/products');
+              
+        })
+      } else {
+        addProduct(data)
+          .then(resp => {
+            console.log(resp);
             setAlert({
               active: true,
-              message: `Ups! ${err.response.data.message}`,
-              type: 'error',
-              autoClose: false,
+              message: 'Product added succesfully',
+              type: 'success-added',
+              autoClose: true,
             });
             setOpen(false);
-      }).finally( () => {
-          const fetchAgain = async () => {
-            try {
-              const resp =  await axios.get(endPoints.products.getList(0,0));
-              setProducts(resp.data);
-            } catch (error){
-              console.log(error.message);
-              return
-            }          
-            }
-          fetchAgain();
-      })
-    }
-    
-    
-}
+            router.push('/dashboard/products');      
+        }).catch((err) => {
+              console.log(err)
+              setAlert({
+                active: true,
+                message: `Ups! ${err.response.data.message}`,
+                type: 'error',
+                autoClose: false,
+              });
+              setOpen(false);
+        }).finally( () => {
+            const fetchAgain = async () => {
+              try {
+                const resp =  await axios.get(endPoints.products.getList(0,0));
+                setProducts(resp.data);
+              } catch (error){
+                console.log(error.message);
+                return
+              }          
+              }
+            fetchAgain();
+        })
+      }
+      
+      
+  }
 
     return (
       <form ref={formRef} onSubmit={handleSumit}>
         <div className="overflow-hidden">
           <div className="px-4 py-5 bg-white sm:p-6">
-            <div className="grid grid-cols-6 gap-6">
+            <div className="grid grid-cols-6 gap-2 sm:grap-6">
               <div className="col-span-6 sm:col-span-3">
                 <label
                   htmlFor="title"
@@ -154,7 +156,7 @@ const handleSumit = (event) => {
                   autoComplete="description"
                   rows="3"
                   defaultValue={product?.description}
-                  className="form-textarea mt-1 block w-full mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                  className="form-textarea mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                 />
               </div>
               {/* Upload product image section */}

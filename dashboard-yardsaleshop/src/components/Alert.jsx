@@ -1,14 +1,16 @@
 import { XCircleIcon } from '@heroicons/react/24/solid';
+import { useAuth } from '@hooks/useAuth';
 
-const Alert = ({ alert, handleClose }) => {
+const Alert = () => {
+  const { alert, toogleAlert }= useAuth();
   if (alert && alert?.autoClose) {
     setTimeout(() => {
-      handleClose();
+      toogleAlert();
     }, 20000);
   }
   
   const styles = {
-    container: "p-5 w-1/2 rounded mb-8 ",
+    container: "mx-4 p-5 rounded mb-8  lg:ml-auto lg:w-1/2 ",
     text: "flex-1 leading-tight text-sm font-bold ",
     icon: "w-6 h-6 "
   }
@@ -52,7 +54,7 @@ const Alert = ({ alert, handleClose }) => {
           <div className="flex space-x-3">
             <div className={styles.text}>{styles.emoji}{alert.message}</div>
             <button type="button">
-              <XCircleIcon className={styles.icon} onClick={handleClose} />
+              <XCircleIcon className={styles.icon} onClick={toogleAlert} />
             </button>
           </div>
         </div>

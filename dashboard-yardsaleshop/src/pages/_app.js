@@ -1,8 +1,7 @@
 import MainLayout from '@layout/MainLayout';
 import { ProviderAuth } from '@hooks/useAuth';
-import Head from 'next/head'
+import Head from 'next/head';
 import '@styles/globals.css';
-
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -15,9 +14,8 @@ function MyApp({ Component, pageProps }) {
           <Component {...pageProps} />
         </MainLayout>
       </ProviderAuth>
- 
     </>
-  )
+  );
 }
 
-export default MyApp
+export default MyApp;

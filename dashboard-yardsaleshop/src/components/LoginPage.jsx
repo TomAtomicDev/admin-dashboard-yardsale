@@ -31,8 +31,10 @@ export default function LoginPage() {
           router.push('/dashboard')
           })
       .catch(error => { 
-        console.log("SignIn error:"+error);
+        console.error("SignIn error: "+error);
         setOpen(true);
+        emailRef.current.value= "";
+        passwordRef.current.value= "";
        })
   }
 
@@ -43,7 +45,8 @@ export default function LoginPage() {
           <div>
             <img className="mx-auto h-16 w-auto" src="/images/icons/favicon_yard_sale.svg" alt="Workflow" />
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
-            <p className="mt-6 text-center text-gray-500">Try using admin@mail.com as email and admin123 as password.</p>
+            <p className="mt-6 text-center text-gray-500">Try using <b>admin@mail.com</b> as email</p>
+            <p className="text-center text-gray-500">Use <b>admin123</b> as password.</p>
           </div>
           <SignErrorModal cancelButtonRef={cancelButtonRef} open={open} setOpen={setOpen}/>
             <form className="mt-8 space-y-6" onSubmit={submitHandler}>
