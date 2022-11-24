@@ -28,12 +28,11 @@ export default function FormProduct({ setOpen, setProducts, product }) {
     if (product) {
       updateProduct(product.id, data)
         .then(() => {
-          console.log(data);
           setAlert({
             active: true,
             message: 'Product edited succesfully',
             type: 'success-edited',
-            autoClose: false,
+            autoClose: true,
           });
           router.push('/dashboard/products');
         })
@@ -49,7 +48,6 @@ export default function FormProduct({ setOpen, setProducts, product }) {
     } else {
       addProduct(data)
         .then((resp) => {
-          console.log(resp);
           setAlert({
             active: true,
             message: 'Product added succesfully',

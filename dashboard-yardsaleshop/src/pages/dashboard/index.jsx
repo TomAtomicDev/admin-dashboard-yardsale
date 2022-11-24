@@ -4,6 +4,7 @@ import { Chart } from '@common/Chart';
 import { useAuth } from '@hooks/useAuth';
 import { NumericFormat } from 'react-number-format';
 import { useEffect } from 'react';
+import Link from 'next/link';
 
 export default function Dashboard() {
   const { verifyAuthentication } = useAuth();
@@ -45,7 +46,8 @@ export default function Dashboard() {
 
   return (
     <>
-      <h1 className="my-8 text-3xl text-center font-bold tracking-tight text-gray-900 sm:text-3xl md:text-4xl">Products by Category</h1>
+      <h1 className="my-4 text-xl text-left font-bold tracking-tight text-indigo-600 sm:text-xl md:text-2xl">Dashboard</h1>
+      <h2 className="my-8 text-3xl text-center font-bold tracking-tight text-gray-900 sm:text-3xl md:text-4xl">Products by Category</h2>
       <div className="mb-8 mt-2 px-4 sm:px-0">
         <Chart chartData={data} />
       </div>
@@ -59,6 +61,16 @@ export default function Dashboard() {
           <NumericFormat value={calculateTotalPrice()} thousandSeparator={true} prefix="$" displayType="text" />
         </b>
       </h4>
+      <Link href={'dashboard/products'}>
+            <button
+              type="button"
+              className="ml-auto block rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            >
+              {/* <CheckIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" /> */}
+              Go to products
+            </button>
+      </Link>
+      
     </>
   );
 }

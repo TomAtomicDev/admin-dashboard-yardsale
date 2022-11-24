@@ -3,20 +3,18 @@ import { useState } from 'react';
 import { useAuth } from '@hooks/useAuth';
 
 export default function Pagination({ totalPages }) {
-  const { setCurrentPage } = useAuth();
+  const { currentPage, setCurrentPage } = useAuth();
   const neighbours = 3;
 
   const items = [];
-  const [current, setCurrent] = useState(1);
-  const end = Math.min(Math.max(neighbours * 2 + 2, neighbours + current + 1), totalPages + 1);
-  const start = Math.min(Math.max(end - (neighbours * 2 + 1), 1), Math.max(current - neighbours, 1));
+  const end = Math.min(Math.max(neighbours * 2 + 2, neighbours + currentPage + 1), totalPages + 1);
+  const start = Math.min(Math.max(end - (neighbours * 2 + 1), 1), Math.max(currentPage - neighbours, 1));
 
   for (let i = start; i < end; i++) {
     items.push(
       <a
         key={`Paginador-${i}`}
-        onClick={() => {
-          setCurrent(i);
+        onClick={() => {;
           setCurrentPage(i);
         }}
         href="#"
@@ -29,20 +27,18 @@ export default function Pagination({ totalPages }) {
   }
 
   function getClassActive(i) {
-    return i === current ? 'z-10 bg-indigo-50 border-indigo-500 text-indigo-600' : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50';
+    return i === currentPage ? 'z-10 bg-indigo-50 border-indigo-500 text-indigo-600' : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50';
   }
 
   function prevPage() {
-    if (current > 1) {
-      setCurrent(current - 1);
-      setCurrentPage(current - 1);
+    if (currentPage > 1) {
+      setCurrentPage(prevState => prevState - 1);
     }
   }
 
   function nextPage() {
-    if (current < totalPages) {
-      setCurrent(current + 1);
-      setCurrentPage(current + 1);
+    if (currentPage < totalPages) {
+      setCurrentPage(prevState => prevState + 1);
     }
   }
 
